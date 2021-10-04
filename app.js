@@ -1,3 +1,4 @@
+const smallBoxNum = 5;
 const dropSmallBox = function dropSmallBox(e){
     console.log('DROP!!')
     e.preventDefault();
@@ -63,12 +64,49 @@ const createSmallBoxes = function createSmallBoxes(boxNum){
     }
 }
 
-createSmallBoxes(5);
+createSmallBoxes(smallBoxNum);
 
 const reset = function reset(e){
     const boxOne = document.querySelector('.box-one')
     const boxTwo = document.querySelector('.box-two')
     boxOne.innerHTML = '';
     boxTwo.innerHTML = '';
-    createSmallBoxes(5)
+    createSmallBoxes(smallBoxNum)
+}
+
+const randomize = function randomize(e){
+    //get random array and insert them randomly
+    const boxOne = document.querySelector('.box-one')
+    const boxTwo = document.querySelector('.box-two')
+    boxOne.innerHTML = '';
+    boxTwo.innerHTML = '';
+    const smallBoxArr = [];
+    for(let i=0;i<smallBoxNum;i++){
+        const smallBox = document.createElement('div')
+        smallBox.append(`small box ${i}`)
+        smallBox.classList.add(`small-box`)
+        smallBox.setAttribute('id',`small-box-${i}`)
+        smallBox.setAttribute('draggable','true')
+        smallBox.setAttribute('ondrop','dropSmallBox(event)')
+        smallBox.setAttribute('ondragover','allowDrop(event)')
+        smallBox.setAttribute('ondragstart','drag(event)')
+        smallBoxArr.push(smallBox)
+    }
+    let shuffle = function shuffle(arr){
+        let shuffleArr = []
+        for(let i=arr.length-1;i>=0;i--){
+            const rand = Math.floor(Math.random()*arr.length)
+            shuffleArr.push(arr.splice(rand,1)[0])
+        }
+        return shuffleArr
+    }
+    let newArr = shuffle(smallBoxArr)
+    let rand = Math.floor(Math.random()*2)
+    if(rand>0){
+        boxTwo.append(newArr.pop())
+    }
+    for(let box of newArr){
+        console.log('box')
+        boxOne.append(box)
+    }
 }
