@@ -6,9 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <script defer src="app.js"></script>
-    <title>Document</title>
+    <title>Drag and Drop box</title>
 </head>
 <body>
-    
+    <div class="screen-container">
+        <div class="large-box box-one">
+
+        </div>
+        <div class="large-box box-two" ondrop="dropBigBox(event)" ondragover="allowDrop(event)">
+
+        </div>
+    </div>
+    <div>
+        <button onclick="reset(event)">reset</button>
+    </div>
 </body>
 </html>
